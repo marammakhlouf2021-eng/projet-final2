@@ -1,0 +1,81 @@
+.page { display: flex; }
+
+.content {
+  flex: 1; padding: 25px;
+  margin-left: 250px;
+  box-sizing: border-box;
+  background: #f8f5ff;
+}
+
+.header {
+  display: flex; align-items: center;
+  gap: 15px; margin-bottom: 20px;
+}
+
+h2 { color: #4a3f6b; margin: 0; font-size: 22px; }
+
+.badge-etu {
+  background: #f0eaff; color: #4a3f6b;
+  padding: 5px 14px; border-radius: 20px;
+  font-size: 13px; border: 1px solid #d4c5e8;
+}
+
+.section-title { color: #4a3f6b; margin-bottom: 15px; font-size: 16px; }
+
+.grille-container {
+  overflow-x: auto; border-radius: 14px;
+  box-shadow: 0 4px 20px rgba(74,63,107,0.12);
+  background: white;
+}
+
+.grille {
+  width: 100%; border-collapse: collapse;
+  min-width: 750px; table-layout: fixed;
+}
+
+.grille th {
+  background: #4a3f6b; color: white;
+  padding: 14px 10px; text-align: center;
+  font-size: 13px; font-weight: 600;
+}
+
+.heure-col { width: 70px; background: #3a2f5b !important; }
+
+.heure-cell {
+  background: #f5f0ff; color: #4a3f6b;
+  font-weight: 600; text-align: center;
+  font-size: 12px; border: 1px solid #e8e0f5;
+  padding: 4px; vertical-align: middle; width: 70px;
+}
+
+.cellule {
+  padding: 3px; border: 1px solid #ede8f5;
+  vertical-align: top; background: white; height: 36px;
+}
+
+.cellule.occupee { background: #faf8ff; }
+
+.cours-card {
+  border-radius: 8px; padding: 6px 8px;
+  color: #333; height: 100%; box-sizing: border-box;
+  display: flex; flex-direction: column; gap: 2px;
+  background: #dce8fb; border-left: 4px solid #4a90d9;
+  overflow: hidden;
+}
+
+.cours-matiere {
+  display: block; font-weight: 700;
+  font-size: 12px; color: #2c2c3e;
+}
+
+.cours-prof {
+  display: block; font-size: 11px; color: #555;
+}
+
+.cours-salle {
+  display: block; font-size: 11px; color: #666;
+}
+
+.cours-heure {
+  display: block; font-size: 10px; color: #888;
+}

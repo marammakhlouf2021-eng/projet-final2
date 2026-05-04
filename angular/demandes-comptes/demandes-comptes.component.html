@@ -1,0 +1,45 @@
+<div class="page">
+  <app-barre-navigation></app-barre-navigation>
+
+  <div class="content">
+    <div class="header">
+      <h2>Demandes de comptes </h2>
+    </div>
+
+    <div class="table-card" *ngIf="demandes.length > 0">
+      <table>
+        <thead>
+          <tr>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Email</th>
+            <th>Téléphone</th>
+            <th>Rôle</th>
+            <th>Date</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let dem of demandes">
+            <td>{{ dem.nom }}</td>
+            <td>{{ dem.prenom }}</td>
+            <td>{{ dem.email }}</td>
+            <td>{{ dem.telephone }}</td>
+            <td>
+              <span class="badge-role">{{ dem.role }}</span>
+            </td>
+            <td>{{ dem.dateCreation | date:'dd/MM/yyyy' }}</td>
+            <td class="actions">
+              <button class="btn-accepter" (click)="accepter(dem._id)">✓ Accepter</button>
+              <button class="btn-refuser" (click)="refuser(dem._id)">✗ Refuser</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div *ngIf="demandes.length === 0" class="no-data">
+      Aucune demande en attente
+    </div>
+  </div>
+</div>

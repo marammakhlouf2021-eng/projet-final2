@@ -1,0 +1,178 @@
+<div class="page">
+  <app-side-adminis></app-side-adminis>
+  <div class="content">
+    <p class="title">Tableau de bord</p>
+
+<div class="cards" *ngIf="stats">
+  <div class="card purple">
+    <p class="label">Étudiants</p>
+    <p class="value">{{ stats.totalEtudiants }}</p>
+    <p class="sub">inscrits</p>
+  </div>
+  <div class="card blue">
+    <p class="label">Professeurs</p>
+    <p class="value">{{ stats.totalProfesseurs }}</p>
+    <p class="sub">actifs</p>
+  </div>
+  <div class="card teal">
+    <p class="label">Classes</p>
+    <p class="value">{{ stats.totalClasses }}</p>
+    
+  </div>
+  <div class="card red">
+    <p class="label">Absences</p>
+    <p class="value">{{ stats.totalAbsences }}</p>
+    <p class="sub">total</p>
+  </div>
+  <div class="card green" *ngIf="stats.tauxReussiteGlobal !== null">
+    <p class="label">Taux de réussite</p>
+    <p class="value">{{ stats.tauxReussiteGlobal }}%</p>
+    <p class="sub">toutes classes</p>
+  </div>
+  <div class="card orange" *ngIf="stats.tauxRedoublantGlobal !== null">
+    <p class="label">Taux de redoublement</p>
+    <p class="value">{{ stats.tauxRedoublantGlobal }}%</p>
+    <p class="sub">toutes classes</p>
+  </div>
+</div>
+
+    <div class="row-charts" *ngIf="stats">
+      <div class="chart-card">
+        <h3>Étudiants par classe</h3>
+        <div *ngFor="let e of stats.etudiantsParClasse; let i = index" class="bar-row">
+          <span class="bar-name">{{ e.classe }}</span>
+          <div class="bar-track">
+            <div class="bar-fill"
+              [style.width.%]="getPercent(e.count, 'etu')"
+              [style.background]="barColors[i % barColors.length]"></div>
+          </div>
+          <span class="bar-val">{{ e.count }}</span>
+        </div>
+      </div>
+      <div class="chart-card">
+        <h3>Absences par classe</h3>
+        <div *ngFor="let a of stats.absencesParClasse; let i = index" class="bar-row">
+          <span class="bar-name">{{ a.classe }}</span>
+          <div class="bar-track">
+            <div class="bar-fill"
+              [style.width.%]="getPercent(a.count, 'abs')"
+              [style.background]="barColors[i % barColors.length]"></div>
+          </div>
+          <span class="bar-val">{{ a.count }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="classe-selector" *ngIf="stats">
+      <h3>Détails par classe</h3>
+      <select [(ngModel)]="classeSelectionneeId" (change)="onClasseChange()">
+        <option value="">-- Choisir une classe --</option>
+        <option *ngFor="let c of stats.etudiantsParClasse" [value]="c.classeId">
+          {{ c.classe }}
+        </option>
+      </select>
+    </div>
+
+    <div *ngIf="classeSelectionnee" class="classe-details">
+
+      <div class="chart-card">
+        <h3>Absences par matière — {{ classeSelectionnee.classe }}</h3>
+        <canvas #absenceChart></canvas>
+      </div>
+
+      <div class="chart-card" *ngIf="moyennesParMatiere.length > 0">
+        <h3>Moyennes par matière — {{ classeSelectionnee.classe }}</h3>
+        <canvas #moyenneChart></canvas>
+      </div>
+
+      <div *ngIf="resultatsClasse" class="resultats-section">
+
+        <div *ngIf="resultatsClasse.notesCompletes">
+          <div class="resultats-cards">
+            <div class="res-card vert">
+              <span class="res-icon"><i class="fas fa-check-circle"></i></span>
+              <span class="res-val">{{ resultatsClasse.totalReussi }}</span>
+              <span class="res-label">Reçus</span>
+            </div>
+            <div class="res-card rouge">
+              <span class="res-icon"><i class="fas fa-times-circle"></i></span>
+              <span class="res-val">{{ resultatsClasse.totalRedoublant }}</span>
+              <span class="res-label">Redoublants</span>
+            </div>
+            <div class="res-card bleu">
+              <span class="res-icon"><i class="fas fa-users"></i></span>
+              <span class="res-val">{{ resultatsClasse.totalEtudiants }}</span>
+              <span class="res-label">Total</span>
+            </div>
+            <div class="res-card orange">
+              <span class="res-icon"><i class="fas fa-chart-line"></i></span>
+              <span class="res-val">
+                {{ resultatsClasse.totalEtudiants > 0 ?
+                  (resultatsClasse.totalReussi / resultatsClasse.totalEtudiants * 100).toFixed(0) : 0 }}%
+              </span>
+              <span class="res-label">Taux réussite</span>
+            </div>
+          </div>
+
+          <div *ngIf="topEtudiants.length > 0" class="top-section">
+            <h3>Top 5 meilleurs étudiants</h3>
+            <table class="top-table">
+              <thead>
+                <tr>
+                  <th>Rang</th>
+                  <th>Étudiant</th>
+                  <th>Moy S1</th>
+                  <th>Moy S2</th>
+                  <th>Moy Annuelle</th>
+                  <th>Résultat</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let etu of topEtudiants; let i = index">
+                  <td class="rang">{{ getRang(i) }}</td>
+                  <td>{{ etu.nom }} {{ etu.prenom }}</td>
+                  <td>{{ etu.moyS1 || '—' }}</td>
+                  <td>{{ etu.moyS2 || '—' }}</td>
+                  <td><strong>{{ getMoyenneLabel(etu.moyAnnee) }}</strong></td>
+                  <td>
+                    <span *ngIf="etu.reussi === true" class="badge-reussi">Reçu</span>
+                    <span *ngIf="etu.reussi === false" class="badge-redoublant">Redoublant</span>
+                    <span *ngIf="etu.reussi === null" class="badge-attente">En cours</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div *ngIf="!resultatsClasse.notesCompletes" class="notes-incompletes">
+          Les notes ne sont pas encore complètes pour cette classe
+        </div>
+      </div>
+
+      <div *ngIf="getRisqueClasse(classeSelectionnee.classe) as risque" class="risque-section">
+        <h3 class="risque-title">Étudiants à risque — {{ classeSelectionnee.classe }}</h3>
+        <div class="risque-grid">
+          <div class="risque-classe">
+            <div *ngFor="let etu of risque.etudiants" class="risque-etu">
+              <div class="risque-etu-header">
+                <span class="etu-avatar">{{ etu.nom[0] }}{{ etu.prenom[0] }}</span>
+                <span class="etu-nom">{{ etu.nom }} {{ etu.prenom }}</span>
+              </div>
+              <div *ngFor="let mat of etu.matieres" class="risque-mat-row">
+                <span class="risque-mat-name">{{ mat.matiere }}</span>
+                <span class="risque-badge">{{ mat.absences }} abs</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="!getRisqueClasse(classeSelectionnee.classe)" class="no-risque">
+        Aucun étudiant à risque pour cette classe
+      </div>
+
+    </div>
+
+  </div>
+</div>

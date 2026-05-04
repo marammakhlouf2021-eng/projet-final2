@@ -1,0 +1,103 @@
+<div class="page">
+  <app-side-adminis></app-side-adminis>
+
+  <div class="content">
+    <div class="header">
+      <h2>Gestion des Étudiants</h2>
+      <button class="btn-ajouter" (click)="showForm = !showForm">+ Nouvel Étudiant</button>
+    </div>
+
+    <!-- Formulaire ajout -->
+    <div *ngIf="showForm" class="form-card">
+      <h3>Nouvel Étudiant</h3>
+
+      <div *ngIf="erreurForm" class="erreur-msg">{{ erreurForm }}</div>
+      <div *ngIf="successForm" class="succes-msg">{{ successForm }}</div>
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Email *</label>
+          <input [(ngModel)]="nouvelEtudiant.email" placeholder="email@example.com" type="email">
+        </div>
+        <div class="form-group">
+          <label>Classe *</label>
+          <select [(ngModel)]="nouvelEtudiant.classe">
+            <option value="">Choisir une classe</option>
+            <option *ngFor="let cls of classes" [value]="cls._id">{{ cls.nom }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button class="btn-enregistrer" (click)="ajouterEtudiant()">Enregistrer</button>
+        <button class="btn-annuler" (click)="showForm = false; erreurForm = ''; successForm = ''">Annuler</button>
+      </div>
+    </div>
+
+    <!-- Filtre par classe -->
+    <div class="filtre-card">
+      <label>Filtrer par classe</label>
+      <select [(ngModel)]="classeSelectionnee" (change)="filtrerParClasse()">
+        <option value="">Tous les étudiants</option>
+        <option value="sans-classe">Sans classe affectée</option>
+        <option *ngFor="let cls of classes" [value]="cls._id">{{ cls.nom }}</option>
+      </select>
+    </div>
+
+    <!-- Table étudiants -->
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Email</th>
+            <th>Téléphone</th>
+            <th>Classe</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let etu of etudiantsFiltres">
+
+            <tr>
+              <td>{{ etu.nom }}</td>
+              <td>{{ etu.prenom }}</td>
+              <td>{{ etu.email }}</td>
+              <td>{{ etu.telephone || '—' }}</td>
+              <td>
+                <span class="badge-classe" *ngIf="etu.classe">{{ etu.classe?.nom }}</span>
+                <span class="badge-empty" *ngIf="!etu.classe">Non affecté</span>
+              </td>
+              <td class="actions">
+                <button class="btn-modifier" (click)="modifier(etu)">Modifier</button>
+                <button class="btn-supprimer" (click)="supprimer(etu._id)">Supprimer</button>
+              </td>
+            </tr>
+
+            <!-- Ligne modification -->
+            <tr *ngIf="etudiantModifier && etudiantModifier._id === etu._id" class="ligne-edit">
+              <td><input [(ngModel)]="etudiantModifier.nom" placeholder="Nom"></td>
+              <td><input [(ngModel)]="etudiantModifier.prenom" placeholder="Prénom"></td>
+              <td><input [(ngModel)]="etudiantModifier.email" placeholder="Email"></td>
+              <td><input [(ngModel)]="etudiantModifier.telephone" placeholder="Téléphone"></td>
+              <td>
+                <select [(ngModel)]="etudiantModifier.classe">
+                  <option value="">Sans classe</option>
+                  <option *ngFor="let cls of classes" [value]="cls._id">{{ cls.nom }}</option>
+                </select>
+              </td>
+              <td class="actions">
+                <button class="btn-enregistrer" (click)="enregistrer()">Enregistrer</button>
+                <button class="btn-annuler" (click)="etudiantModifier = null">Annuler</button>
+              </td>
+            </tr>
+
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
+
+    <p *ngIf="etudiantsFiltres.length === 0" class="no-data">Aucun étudiant trouvé</p>
+  </div>
+</div>

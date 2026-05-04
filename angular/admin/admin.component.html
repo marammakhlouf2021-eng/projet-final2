@@ -1,0 +1,31 @@
+<div class="form">
+  <div class="container">
+
+    <!-- Formulaire login -->
+    <div *ngIf="!showForgotPassword">
+      <h2>Se connecter</h2>
+      <p *ngIf="erreur" class="erreur">{{ erreur }}</p>
+      <input type="text" placeholder="Email" [(ngModel)]="email">
+      <input type="password" placeholder="Mot de passe" [(ngModel)]="password">
+      <button class="login-btn" (click)="login()">LOGIN</button>
+      <p class="forgot-link" (click)="showForgotPassword = true">
+        Mot de passe oublié ?
+      </p>
+     
+    </div>
+
+    <!-- Formulaire mot de passe oublié -->
+    <div *ngIf="showForgotPassword">
+      <h2>Mot de passe oublié</h2>
+      <p class="subtitle">Entrez votre email pour recevoir un lien de réinitialisation</p>
+      <input type="email" placeholder="votre@email.com" [(ngModel)]="emailOublie">
+      <p *ngIf="erreurForgot" class="erreur">{{ erreurForgot }}</p>
+      <p *ngIf="messageForgot" class="succes">{{ messageForgot }}</p>
+      <button class="login-btn" (click)="envoyerMotDePasse()">Envoyer</button>
+      <p class="forgot-link" (click)="showForgotPassword = false">
+        ← Retour au login
+      </p>
+    </div>
+
+  </div>
+</div>

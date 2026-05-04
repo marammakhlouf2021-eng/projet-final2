@@ -1,0 +1,97 @@
+.layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 250px;
+  background: linear-gradient(180deg,  #707ca5, #6c218f);
+  color: white;
+  padding: 20px;
+}
+
+.sidebar h2 {
+  margin-bottom: 30px;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  margin: 15px 0;
+}
+
+.sidebar ul li a {
+  text-decoration: none;
+  color: white;
+  padding: 10px;
+  display: block;
+  border-radius: 8px;
+  transition: 0.3s;
+}
+
+.sidebar ul li a:hover {
+  background-color: #6c76a8(255, 255, 255, 0.2);
+}
+
+.active {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.content {
+  flex: 1;
+  padding: 40px;
+  background-color: #f3f4f6;
+}
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+.layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 250px;
+  min-height: 100vh; /* 🔥 important */
+  background: linear-gradient(180deg, #515a80, #1e40af);
+  color: white;
+  padding: 20px;
+}
+.sidebar {
+  width: 250px;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #515a80, #1e40af);
+  color: white;
+  padding: 20px;
+
+  display: flex;           /* 🔥 */
+  flex-direction: column;  /* 🔥 */
+}
+.btn-deconnexion {
+  margin-top: auto; /* 🔥 pousse vers le bas */
+}
+.btn-deconnexion {
+  margin-top: auto;
+  padding: 12px;
+  background: #68458a; /* rouge */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.btn-deconnexion:hover {
+  background: #555dc7;
+  transform: scale(1.05);
+}
+
+.btn-deconnexion:active {
+  transform: scale(0.98);
+}

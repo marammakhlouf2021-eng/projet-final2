@@ -1,0 +1,55 @@
+<div class="page">
+  <div class="card">
+
+    <!-- Chargement -->
+    <div *ngIf="chargement" class="chargement">
+      Vérification du lien...
+    </div>
+
+    <!-- Token invalide -->
+    <div *ngIf="!chargement && tokenInvalide" class="token-invalide">
+      <div class="icon-error">!</div>
+      <h2>Lien invalide ou expiré</h2>
+      <p>Ce lien d'invitation n'est plus valide. Contactez l'administration.</p>
+      <a class="btn-retour" [routerLink]="['/']">Retour à l'accueil</a>
+    </div>
+
+    <!-- Formulaire -->
+    <div *ngIf="!chargement && !tokenInvalide">
+      <h2>Compléter votre profil</h2>
+      <p class="subtitle">Bienvenue ! Complétez vos informations pour activer votre compte professeur.</p>
+
+      <div class="email-badge">{{ email }}</div>
+
+      <div *ngIf="erreur" class="erreur-msg">{{ erreur }}</div>
+      <div *ngIf="succes" class="succes-msg">{{ succes }}</div>
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Nom *</label>
+          <input [(ngModel)]="profil.nom" placeholder="Votre nom">
+        </div>
+        <div class="form-group">
+          <label>Prénom *</label>
+          <input [(ngModel)]="profil.prenom" placeholder="Votre prénom">
+        </div>
+        <div class="form-group">
+          <label>Téléphone</label>
+          <input [(ngModel)]="profil.telephone" placeholder="8 chiffres">
+        </div>
+        <div class="form-group">
+          <label>Mot de passe *</label>
+          <input [(ngModel)]="profil.password" type="password" placeholder="••••••••">
+        </div>
+        <div class="form-group full">
+          <label>Confirmer le mot de passe *</label>
+          <input [(ngModel)]="profil.passwordConfirm" type="password" placeholder="••••••••">
+        </div>
+      </div>
+
+      <button class="btn-submit" (click)="soumettre()">Activer mon compte</button>
+      <p class="login-link" [routerLink]="['/']">Retour à l'accueil</p>
+    </div>
+
+  </div>
+</div>

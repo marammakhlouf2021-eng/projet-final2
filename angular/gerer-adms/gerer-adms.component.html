@@ -1,0 +1,58 @@
+<app-barre-navigation></app-barre-navigation>
+
+<div class="content">
+  <div class="header">
+    <h2>Gestion des Administrations</h2>
+    <button class="btn-ajouter" (click)="showForm = !showForm">+ Ajouter</button>
+  </div>
+
+  <div *ngIf="showForm" class="form-card">
+    <h3>Nouvelle Administration</h3>
+    <div *ngIf="erreurForm" class="erreur-msg">{{ erreurForm }}</div>
+    <div *ngIf="successForm" class="succes-msg">{{ successForm }}</div>
+    <div class="form-row">
+      <input [(ngModel)]="nouvelleAdm.email" placeholder="Email *" type="email">
+    </div>
+    <div class="form-actions">
+      <button class="btn-enregistrer" (click)="ajouter()">Enregistrer</button>
+      <button class="btn-annuler" (click)="showForm = false; erreurForm = ''; successForm = ''">Annuler</button>
+    </div>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Nom</th>
+        <th>Prénom</th>
+        <th>Email</th>
+        <th>Téléphone</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let adm of administrations">
+        <tr>
+          <td>{{ adm.nom }}</td>
+          <td>{{ adm.prenom }}</td>
+          <td>{{ adm.email }}</td>
+          <td>{{ adm.telephone || '—' }}</td>
+          <td class="actions">
+            <button class="btn-modifier" (click)="modifier(adm)">Modifier</button>
+            <button class="btn-supprimer" (click)="supprimer(adm._id)">Supprimer</button>
+          </td>
+        </tr>
+        <tr *ngIf="administrationModifier && administrationModifier._id === adm._id" class="ligne-edit">
+          <td><input [(ngModel)]="administrationModifier.nom" placeholder="Nom"></td>
+          <td><input [(ngModel)]="administrationModifier.prenom" placeholder="Prénom"></td>
+          <td><input [(ngModel)]="administrationModifier.email" placeholder="Email"></td>
+          <td><input [(ngModel)]="administrationModifier.telephone" placeholder="Téléphone"></td>
+          <td class="actions">
+            <button class="btn-enregistrer" (click)="enregistrerModification()">Enregistrer</button>
+            <button class="btn-annuler" (click)="annuler()">Annuler</button>
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+  <p *ngIf="administrations.length === 0" class="no-data">Aucune administration enregistrée</p>
+</div>

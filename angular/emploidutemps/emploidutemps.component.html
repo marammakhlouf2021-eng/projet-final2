@@ -1,0 +1,109 @@
+<div class="page">
+  <app-side-adminis></app-side-adminis>
+
+  <div class="content">
+    <div class="header">
+      <h2>Emploi du Temps</h2>
+      <button class="btn-ajouter" (click)="showForm = !showForm" [disabled]="!classeSelectionnee">
+        + Ajouter séance
+      </button>
+    </div>
+
+    <div class="filtre-card">
+      <label>Classe</label>
+      <select [(ngModel)]="classeSelectionnee" (ngModelChange)="chargerEmploi()">
+        <option value="">Choisir une classe</option>
+        <option *ngFor="let cls of classes" [value]="cls._id">{{ cls.nom }}</option>
+      </select>
+    </div>
+
+    <div *ngIf="showForm && classeSelectionnee" class="form-card">
+      <h3>Nouvelle séance</h3>
+      <div *ngIf="erreurAjout" class="erreur-msg">{{ erreurAjout }}</div>
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Jour *</label>
+          <select [(ngModel)]="nouvelEmploi.jour">
+            <option value="">Choisir</option>
+            <option *ngFor="let j of jours" [value]="j">{{ j }}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Heure début *</label>
+          <select [(ngModel)]="nouvelEmploi.heureDebut">
+            <option value="">Choisir</option>
+            <option *ngFor="let h of heures" [value]="h">{{ h }}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Heure fin *</label>
+          <select [(ngModel)]="nouvelEmploi.heureFin">
+            <option value="">Choisir</option>
+            <option *ngFor="let h of heures" [value]="h">{{ h }}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Matière *</label>
+          <select [(ngModel)]="nouvelEmploi.matiere" (change)="onMatiereChange()">
+            <option value="">Choisir</option>
+            <option *ngFor="let mat of matieresFiltrees" [value]="mat._id">{{ mat.nom }}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Professeur *</label>
+          <select [(ngModel)]="nouvelEmploi.professeur">
+            <option value="">Choisir</option>
+            <option *ngFor="let prof of professeursFiltres" [value]="prof._id">
+              {{ prof.nom }} {{ prof.prenom }}
+            </option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Salle</label>
+          <input [(ngModel)]="nouvelEmploi.salle" placeholder="ex: Salle 101">
+        </div>
+      </div>
+      <div class="form-actions">
+        <button class="btn-enregistrer" (click)="ajouterEmploi()">Enregistrer</button>
+        <button class="btn-annuler" (click)="showForm = false; erreurAjout = ''">Annuler</button>
+      </div>
+    </div>
+
+    <div *ngIf="classeSelectionnee" class="grille-container">
+      <table class="grille">
+        <thead>
+          <tr>
+            <th class="heure-col">Heure</th>
+            <th *ngFor="let jour of jours">{{ jour }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let heure of heures">
+            <td class="heure-cell">{{ heure }}</td>
+            <ng-container *ngFor="let jour of jours">
+              <ng-container *ngIf="!estCachee(jour, heure)">
+                <td [attr.rowspan]="getRowspan(jour, heure)"
+                    class="cellule"
+                    [class.occupee]="getCellule(jour, heure)">
+                  <div *ngIf="getCellule(jour, heure) as seance"
+                       class="cours-card"
+                       [ngClass]="'couleur-' + (matieresFiltrees.indexOf(seance.matiere) % 6)">
+                    <span class="cours-matiere">{{ seance.matiere?.nom }}</span>
+                    <span class="cours-salle" *ngIf="seance.salle">{{ seance.salle }}</span>
+                    <span class="cours-prof">{{ seance.professeur?.nom }} {{ seance.professeur?.prenom }}</span>
+                    <span class="cours-heure">{{ seance.heureDebut }} - {{ seance.heureFin }}</span>
+                    <button class="btn-delete" (click)="supprimer(seance._id)">✕</button>
+                  </div>
+                </td>
+              </ng-container>
+            </ng-container>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div *ngIf="!classeSelectionnee" class="no-data">
+      Sélectionnez une classe pour afficher l'emploi du temps
+    </div>
+  </div>
+</div>

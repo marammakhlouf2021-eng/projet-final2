@@ -1,0 +1,70 @@
+<div class="page">
+  <app-side-adminis></app-side-adminis>
+  <div class="content">
+    <div class="header">
+      <h2>Gestion des Semestres</h2>
+    </div>
+
+    <div class="table-card">
+      <table>
+        <thead>
+          <tr>
+            <th>Classe</th>
+            <th>Niveau</th>
+            <th>Semestre 1</th>
+            <th>Semestre 2</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let cls of classes">
+            <td><strong>{{ cls.nom }}</strong></td>
+            <td>{{ cls.niveau }}</td>
+
+            <td>
+              <div class="actions-cell">
+                <span *ngIf="estCloture(cls._id, 'S1')" class="badge-cloture">
+                  Notes visibles
+                </span>
+                <span *ngIf="!estCloture(cls._id, 'S1')" class="badge-ouvert">
+                  Notes cachées
+                </span>
+                <button *ngIf="!estCloture(cls._id, 'S1')"
+                        class="btn-cloturer"
+                        (click)="cloturer(cls._id, 'S1')">
+                  Afficher notes S1
+                </button>
+                <button *ngIf="estCloture(cls._id, 'S1')"
+                        class="btn-decloturer"
+                        (click)="decloturer(cls._id, 'S1')">
+                  Cacher notes S1
+                </button>
+              </div>
+            </td>
+
+            <td>
+              <div class="actions-cell">
+                <span *ngIf="estCloture(cls._id, 'S2')" class="badge-cloture">
+                  Notes visibles
+                </span>
+                <span *ngIf="!estCloture(cls._id, 'S2')" class="badge-ouvert">
+                  Notes cachées
+                </span>
+                <button *ngIf="!estCloture(cls._id, 'S2')"
+                        class="btn-cloturer"
+                        (click)="cloturer(cls._id, 'S2')">
+                  Afficher notes S2
+                </button>
+                <button *ngIf="estCloture(cls._id, 'S2')"
+                        class="btn-decloturer"
+                        (click)="decloturer(cls._id, 'S2')">
+                  Cacher notes S2
+                </button>
+              </div>
+            </td>
+
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

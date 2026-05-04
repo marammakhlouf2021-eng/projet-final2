@@ -1,0 +1,40 @@
+<div class="login-page">
+  <div class="login-card">
+    <h2>Espace Professeur</h2>
+    <p class="subtitle">Connectez-vous à votre espace</p>
+
+    <!-- Formulaire login -->
+    <div *ngIf="!showForgotPassword">
+      <div class="form-group">
+        <label>Email</label>
+        <input [(ngModel)]="email" type="email" placeholder="votre@email.com">
+      </div>
+      <div class="form-group">
+        <label>Mot de passe</label>
+        <input [(ngModel)]="password" type="password" placeholder="••••••••">
+      </div>
+      <p *ngIf="erreur" class="erreur">{{ erreur }}</p>
+      <button class="btn-login" (click)="seConnecter()">Se connecter</button>
+      <p class="forgot-link" (click)="showForgotPassword = true">
+        Mot de passe oublié ?
+      </p>
+    </div>
+
+    <!-- Formulaire mot de passe oublié -->
+    <div *ngIf="showForgotPassword">
+      <h3>Mot de passe oublié</h3>
+      <p class="subtitle">Entrez votre email pour recevoir votre mot de passe</p>
+      <div class="form-group">
+        <label>Email</label>
+        <input [(ngModel)]="emailOublie" type="email" placeholder="votre@email.com">
+      </div>
+      <p *ngIf="erreurForgot" class="erreur">{{ erreurForgot }}</p>
+      <p *ngIf="messageForgot" class="succes">{{ messageForgot }}</p>
+      <button class="btn-login" (click)="envoyerMotDePasse()">Envoyer</button>
+      <p class="forgot-link" (click)="showForgotPassword = false">
+        ← Retour au login
+      </p>
+    </div>
+
+  </div>
+</div>

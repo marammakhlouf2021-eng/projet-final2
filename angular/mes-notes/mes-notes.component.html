@@ -1,0 +1,80 @@
+<div class="page">
+  <app-sidebar-etudiant></app-sidebar-etudiant>
+  <div class="content">
+    <div class="header">
+      <h2>Mes Notes</h2>
+    </div>
+
+    <div class="semestres">
+      <button [class.active]="semestreActif === 'S1'" (click)="semestreActif = 'S1'">
+        Semestre 1
+        <span *ngIf="semestreCloture.S1" class="badge-ok">✓</span>
+      </button>
+      <button [class.active]="semestreActif === 'S2'" (click)="semestreActif = 'S2'">
+        Semestre 2
+        <span *ngIf="semestreCloture.S2" class="badge-ok">✓</span>
+      </button>
+    </div>
+
+    <div *ngIf="!semestreCloture[semestreActif]" class="info-attente">
+      ⏳ Les moyennes seront disponibles après clôture du semestre par l'administration.
+    </div>
+
+    <div class="table-card" *ngIf="getMatieres().length > 0">
+      <table>
+        <thead>
+          <tr>
+            <th>Matière</th>
+            <th>Coeff</th>
+            <th>DS1 %</th>
+            <th>DS2 %</th>
+            <th>Examen %</th>
+            <th>TP %</th>
+            <th>Moyenne</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let mat of getMatieres()">
+            <td>{{ mat?.nom }}</td>
+            <td>{{ mat?.coefficient || 1 }}</td>
+            <td>
+              {{ getNoteParType(mat?._id, 'DS1') }}
+              <small>({{ getPourcentages(mat?._id).DS1 }}%)</small>
+            </td>
+            <td>
+              {{ getNoteParType(mat?._id, 'DS2') }}
+              <small>({{ getPourcentages(mat?._id).DS2 }}%)</small>
+            </td>
+            <td>
+              {{ getNoteParType(mat?._id, 'Examen') }}
+              <small>({{ getPourcentages(mat?._id).Examen }}%)</small>
+            </td>
+            <td>
+              {{ getNoteParType(mat?._id, 'TP') }}
+              <small>({{ getPourcentages(mat?._id).TP }}%)</small>
+            </td>
+            <td>
+              <strong [class.incomplet]="getMoyenne(mat?._id) === 'Incomplet'">
+                {{ getMoyenne(mat?._id) }}
+              </strong>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Moyenne générale visible seulement si semestre clôturé -->
+      <div class="moyenne-generale" *ngIf="semestreCloture[semestreActif]">
+        <span>Moyenne générale {{ semestreActif }} :</span>
+        <strong [class.incomplet]="getMoyenneGenerale() === 'Notes incomplètes'">
+          {{ getMoyenneGenerale() === 'Notes incomplètes' 
+              ? '⚠️ Notes incomplètes' 
+              : getMoyenneGenerale() + ' / 20' }}
+        </strong>
+      </div>
+    </div>
+
+    <div *ngIf="getMatieres().length === 0" class="no-data">
+      Aucune note disponible pour ce semestre.
+    </div>
+  </div>
+</div>

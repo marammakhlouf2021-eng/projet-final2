@@ -1,0 +1,161 @@
+.page { display: flex; }
+
+.content {
+  flex: 1;
+  padding: 25px;
+  margin-left: 250px;
+  box-sizing: border-box;
+
+}
+/* Layout général */
+.page {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f5f7fb;
+  
+}
+
+
+/* Header */
+.header {
+  margin-bottom: 20px;
+}
+
+.header h2 {
+  font-size: 26px;
+  color: #1e293b;
+  font-weight: 600;
+}
+
+/* Carte du tableau */
+.table-card {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+  overflow-x: auto;
+}
+
+/* Tableau */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* Header tableau */
+thead {
+  background-color: #6c0396;
+  color: white;
+}
+
+thead th {
+  padding: 12px;
+  text-align: center;
+  font-weight: 500;
+}
+
+/* Lignes */
+tbody td {
+  padding: 12px;
+  text-align: center;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+/* Alternance lignes */
+tbody tr:nth-child(even) {
+  background-color: #f9fafb;
+}
+
+/* Hover */
+tbody tr:hover {
+  background-color: #eef2ff;
+  transition: 0.3s;
+}
+
+/* Moyenne (mettre en valeur) */
+tbody td strong {
+  color: #16a34a;
+  font-size: 15px;
+}
+
+/* Message aucune donnée */
+.no-data {
+  margin-top: 20px;
+  padding: 15px;
+  text-align: center;
+  background-color: #fff;
+  border-radius: 12px;
+  color: #64748b;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+  font-style: italic;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .content {
+    padding: 15px;
+  }
+
+  .header h2 {
+    font-size: 20px;
+  }
+
+  table {
+    font-size: 13px;
+  }
+
+  thead th,
+  tbody td {
+    padding: 8px;
+  }
+}
+.semestres {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.semestres button {
+  padding: 10px 25px;
+  border: 2px solid #2e86c1;
+  border-radius: 8px;
+  background: white;
+  color: #2b1e58;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  transition: 0.2s;
+}
+
+.semestres button.active {
+  background: #53198a;
+  color: white;
+}
+.info-attente {
+  background: #fff3cd;
+  color: #856404;
+  padding: 12px 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+.moyenne-generale {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 15px;
+  padding: 15px 20px;
+  background: #e8dff5;
+  font-size: 16px;
+  color: #4a3f6b;
+}
+
+.moyenne-generale strong {
+  font-size: 20px;
+  color: #4a3f6b;
+}
+
+.incomplet { color: #e05c5c; }
+
+.badge-ok { margin-left: 5px; }

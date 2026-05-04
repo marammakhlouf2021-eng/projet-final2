@@ -1,0 +1,64 @@
+<div class="page">
+  <app-side-adminis></app-side-adminis>
+
+  <div class="content">
+    <div class="header">
+      <h2>Affectation des Étudiants aux Classes</h2>
+      <button class="btn-enregistrer-tout" (click)="enregistrerTout()"
+              [disabled]="modificationsEnAttente.size === 0">
+        Enregistrer tout ({{ modificationsEnAttente.size }})
+      </button>
+    </div>
+
+    <div class="filtre-card">
+      <label>Filtrer par classe</label>
+      <select [(ngModel)]="classeSelectionnee" (change)="filtrerParClasse()">
+        <option value="">Tous les étudiants</option>
+        <option value="sans-classe">Sans classe</option>
+        <option *ngFor="let cls of classes" [value]="cls._id">{{ cls.nom }}</option>
+      </select>
+    </div>
+
+    <div *ngIf="succes" class="succes-msg">{{ succes }}</div>
+
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Email</th>
+            <th>Classe actuelle</th>
+            <th>Affecter à</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let etu of etudiantsFiltres"
+              [class.modifie]="modificationsEnAttente.has(etu._id)">
+            <td>{{ etu.nom }}</td>
+            <td>{{ etu.prenom }}</td>
+            <td>{{ etu.email }}</td>
+            <td>
+              <span class="badge" *ngIf="etu.classe">{{ etu.classe?.nom }}</span>
+              <span class="badge-empty" *ngIf="!etu.classe">Non affecté</span>
+            </td>
+            <td>
+              <select (change)="marquerModification(etu._id, $event)">
+                <option value="">Choisir classe</option>
+                <option *ngFor="let cls of classes" [value]="cls._id"
+                        [selected]="(etu.classe?._id || etu.classe) === cls._id">
+                  {{ cls.nom }}
+                </option>
+              </select>
+              <span *ngIf="modificationsEnAttente.has(etu._id)" class="badge-modif">
+                Modifié
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p *ngIf="etudiantsFiltres.length === 0" class="no-data">Aucun étudiant trouvé</p>
+  </div>
+</div>

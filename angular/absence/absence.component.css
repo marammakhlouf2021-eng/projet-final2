@@ -1,0 +1,162 @@
+* , *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+}
+
+app-root {
+  display: block;
+  width: 100%;
+}
+.page-wrapper {
+  display: flex;
+  align-items: stretch;
+  gap: 25px;
+  padding: 20px 10px;
+  width: 100%;
+  min-height: calc(100vh - 60px);
+  box-sizing: border-box;
+}
+.left-side {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-left: 10px;  /* petit espace à gauche seulement */
+  min-width: 220px;
+}
+/* Sidebar */
+.sidebar {
+  width: 220px;
+  background-color: #bfa4d9;
+  border-radius: 20px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.menu-item {
+  background-color: #d9c6ea;
+  padding: 12px;
+  margin-bottom: 10px;
+  border-radius: 15px;
+  cursor: pointer;
+  text-align: left;
+  transition: 0.3s;
+}
+
+.menu-item:hover {
+  background-color: #e8d8f5;
+}
+
+.active {
+  font-weight: bold;
+}
+
+.spacer {
+  flex: 1;
+}
+
+.logout {
+  background-color: #cbb3e3;
+}
+
+/* Classes */
+.classes {
+  width: 280px;              /* avant 200px */
+  background-color: #c7aedf;
+  border-radius: 25px;
+  padding: 25px;
+ 
+}
+.classes h3 {
+  margin-top: 0;
+}
+
+.classes ul {
+  list-style: none;
+  padding: 0;
+}
+
+.classes li {
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.classes li:hover {
+  background-color: #e2d2f3;
+}
+
+/* Tableau plus grand */
+.content {
+  flex: 1;
+  min-width: 0;        /* ← important, empêche le débordement */
+  background-color: #d8c5eb;
+  border-radius: 25px;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+}
+/* Table */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  border: 1px solid #999;
+  padding: 10px;
+  text-align: center;
+}
+
+input {
+  width: 90%;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #aaa;
+}
+
+/* Button */
+.save-btn {
+  margin-top: auto;
+  text-align: right;
+}
+
+button {
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  background-color: #bfa4d9;
+  transition: 0.3s;
+}
+
+button:hover {
+  background-color: #a88bc5;
+}
+.save-controls {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: auto;
+}
+
+.seance-input, .date-input {
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1px solid #aaa;
+  background-color: #ede0f7;
+  font-size: 14px;
+  width: auto;
+}
+
+.seance-input {
+  width: 110px;
+}

@@ -1,0 +1,300 @@
+:host {
+  display: flex;
+  width: 100%;
+}
+
+.content {
+  flex: 1;
+  padding: 25px;
+  min-width: 0;
+  overflow-x: auto;
+  background: #f8f5ff;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.header h2 {
+  color: #6c218f;
+  margin: 0;
+  font-size: 24px;
+}
+
+/* Bouton ajouter */
+.btn-ajouter {
+  background: linear-gradient(135deg, #707ca5, #6c218f);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s;
+  box-shadow: 0 2px 8px rgba(108,33,143,0.3);
+}
+
+.btn-ajouter:hover {
+  background: linear-gradient(135deg, #5a6691, #5a1a78);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(108,33,143,0.4);
+}
+
+/* Formulaire ajout */
+.form-card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 25px;
+  border: 1px solid #d4c5e8;
+  box-shadow: 0 2px 10px rgba(108,33,143,0.1);
+}
+
+.form-card h3 {
+  color: #6c218f;
+  margin: 0 0 15px 0;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 15px;
+}
+
+.form-row input {
+  padding: 9px 12px;
+  border: 1.5px solid #707ca5;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+  transition: 0.2s;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.form-row input:focus {
+  border-color: #6c218f;
+  box-shadow: 0 0 0 2px rgba(108,33,143,0.15);
+}
+
+.form-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+/* Boutons enregistrer / annuler */
+.btn-enregistrer {
+  background: linear-gradient(135deg, #707ca5, #6c218f);
+  color: white;
+  border: none;
+  padding: 9px 18px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s;
+  box-shadow: 0 2px 6px rgba(108,33,143,0.3);
+}
+
+.btn-enregistrer:hover {
+  background: linear-gradient(135deg, #5a6691, #5a1a78);
+  transform: translateY(-1px);
+}
+
+.btn-annuler {
+  background: #f0eaff;
+  color: #6c218f;
+  border: 1.5px solid #707ca5;
+  padding: 9px 18px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn-annuler:hover {
+  background: #e0d5f5;
+}
+
+/* Table */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(108,33,143,0.1);
+}
+
+th {
+  background: linear-gradient(135deg, #707ca5, #6c218f);
+  color: white;
+  padding: 14px 16px;
+  text-align: left;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #ede8f5;
+  background-color: #faf8fd;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+tr:hover td {
+  background-color: #f0eaff;
+}
+
+/* Ligne modification */
+.ligne-edit td {
+  background-color: #f5f0ff;
+  padding: 8px 12px;
+}
+
+.ligne-edit input {
+  width: 100%;
+  padding: 7px 10px;
+  border: 1.5px solid #707ca5;
+  border-radius: 8px;
+  font-size: 13px;
+  outline: none;
+  box-sizing: border-box;
+  transition: 0.2s;
+}
+
+.ligne-edit input:focus {
+  border-color: #6c218f;
+  box-shadow: 0 0 0 2px rgba(108,33,143,0.15);
+}
+
+.ligne-edit select {
+  width: 100%;
+  padding: 7px 10px;
+  border: 1.5px solid #707ca5;
+  border-radius: 8px;
+  font-size: 13px;
+  outline: none;
+  background: white;
+  box-sizing: border-box;
+}
+
+/* Actions */
+.actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: nowrap;
+}
+
+.btn-modifier {
+  background: linear-gradient(135deg, #707ca5, #6c218f);
+  color: white;
+  border: none;
+  padding: 7px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: bold;
+  transition: 0.2s;
+  white-space: nowrap;
+  box-shadow: 0 2px 6px rgba(108,33,143,0.2);
+}
+
+.btn-modifier:hover {
+  background: linear-gradient(135deg, #5a6691, #5a1a78);
+  transform: translateY(-1px);
+}
+
+.btn-supprimer {
+  background: linear-gradient(135deg, #e05c5c, #c44a4a);
+  color: white;
+  border: none;
+  padding: 7px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: bold;
+  transition: 0.2s;
+  white-space: nowrap;
+  box-shadow: 0 2px 6px rgba(220,80,80,0.2);
+}
+
+.btn-supprimer:hover {
+  background: linear-gradient(135deg, #c44a4a, #a83838);
+  transform: translateY(-1px);
+}
+
+/* Matières section (gerer-p) */
+.matieres-section {
+  margin-top: 15px;
+  padding: 15px;
+  background: #f5f0ff;
+  border-radius: 10px;
+  border: 1px solid #d4c5e8;
+}
+
+.matieres-section h4 {
+  color: #6c218f;
+  margin: 0 0 12px 0;
+}
+
+.matieres-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.matiere-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #4a3f6b;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.matiere-checkbox input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  accent-color: #6c218f;
+}
+
+/* No data */
+.no-data {
+  text-align: center;
+  color: #707ca5;
+  font-style: italic;
+  padding: 40px;
+  background: #f5f0ff;
+  border-radius: 12px;
+  margin-top: 20px;
+  border: 1px dashed #707ca5;
+}
+.erreur-msg {
+  background: #FCEBEB;
+  color: #A32D2D;
+  padding: 9px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  margin-bottom: 12px;
+  border-left: 3px solid #A32D2D;
+}
+
+.succes-msg {
+  background: #E8F5E9;
+  color: #2E7D32;
+  padding: 9px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  margin-bottom: 12px;
+  border-left: 3px solid #2E7D32;
+}

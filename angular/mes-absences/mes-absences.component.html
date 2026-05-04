@@ -1,0 +1,61 @@
+<div class="page">
+  <app-sidebar-etudiant></app-sidebar-etudiant>
+  <div class="content">
+    <div class="header">
+      <h2>Mes Absences </h2>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card rouge">
+        <span class="stat-number">{{ totalAbsences }}</span>
+        <span class="stat-label">Absences</span>
+      </div>
+      <div class="stat-card orange">
+        <span class="stat-number">{{ totalRetards }}</span>
+        <span class="stat-label">Retards</span>
+      </div>
+      <div class="stat-card violet">
+        <span class="stat-number">{{ totalNonJustifiees }}</span>
+        <span class="stat-label">Non justifiées</span>
+      </div>
+    </div>
+
+    <div class="table-card" *ngIf="absences.length > 0">
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Matière</th>
+            <th>Type</th>
+            <th>Durée retard</th>
+            <th>Justifiée</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let abs of absences">
+            <td>{{ formatDate(abs.date) }}</td>
+            <td>{{ abs.matiere?.nom }}</td>
+            <td>
+              <span [class]="abs.type === 'retard' ? 'badge-retard' : 'badge-absence'">
+                {{ getTypeLabel(abs.type) }}
+              </span>
+            </td>
+            <td>
+              <span *ngIf="abs.type === 'retard'">{{ abs.dureeRetard }} min</span>
+              <span *ngIf="abs.type !== 'retard'">—</span>
+            </td>
+            <td>
+              <span [class]="abs.justifiee ? 'badge-justifie' : 'badge-non-justifie'">
+                {{ abs.justifiee ? ' Oui' : ' Non' }}
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div *ngIf="absences.length === 0" class="no-data">
+      Aucune absence enregistrée
+    </div>
+  </div>
+</div>

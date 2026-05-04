@@ -1,0 +1,64 @@
+
+
+.hero {
+  display: flex;
+  height: 100vh;
+}
+
+.hero-left {
+  width: 40%;
+  background-color: #e8dccb;
+  display: flex;
+  flex-direction: column;
+
+  justify-content: flex-start;   
+  padding: 90px 60px;            
+  gap: 25px;
+}
+
+
+
+
+
+
+.hero-left h1 {
+  font-size: 50px;
+  font-weight: 700;
+  font-family:cursive;
+  color: #1d2a7a;
+ 
+}
+
+
+.btn {
+  background-color: #1d2a7a;
+  color: white;
+  padding: 12px 25px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  transition: 0.3s;
+  border-radius: 5px;
+}
+
+.btn:hover {
+  background-color: #0f1a5a;
+}
+
+.secondary {
+  background-color: #555;
+}
+
+.secondary:hover {
+  background-color: #333;
+}
+
+.hero-right {
+  width:70%;
+}
+
+.hero-right img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

@@ -1,0 +1,116 @@
+<div class="page">
+  <app-side-adminis></app-side-adminis>
+
+  <div class="content">
+    <div class="header">
+      <h2>Gestion des Professeurs</h2>
+      <button class="btn-ajouter" (click)="showForm = !showForm">+ Nouveau Professeur</button>
+    </div>
+
+    <!-- Formulaire ajout -->
+    <div *ngIf="showForm" class="form-card">
+      <h3>Nouveau Professeur</h3>
+
+      <div *ngIf="erreurForm" class="erreur-msg">{{ erreurForm }}</div>
+      <div *ngIf="successForm" class="succes-msg">{{ successForm }}</div>
+
+      <div class="form-grid">
+        <div class="form-group full">
+          <label>Email *</label>
+          <input [(ngModel)]="nouveauProf.email" placeholder="email@example.com" type="email">
+        </div>
+      </div>
+
+      <div class="matieres-section">
+        <h4>Matières autorisées</h4>
+        <div class="matieres-simple-liste">
+          <label *ngFor="let mat of matieresUniques" class="mat-checkbox">
+            <input type="checkbox"
+                   [checked]="matieresSelectionnees.includes(mat._id)"
+                   (change)="toggleMatiere(mat._id)">
+            {{ mat.nom }}
+          </label>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button class="btn-enregistrer" (click)="ajouterProf()">Enregistrer</button>
+        <button class="btn-annuler" (click)="showForm = false; erreurForm = ''; successForm = ''">Annuler</button>
+      </div>
+    </div>
+
+    <!-- Filtre par classe -->
+    <div class="filtre-card">
+      <label>Filtrer par classe</label>
+      <select [(ngModel)]="classeSelectionnee" (change)="filtrerParClasse()">
+        <option value="">Tous les professeurs</option>
+        <option value="sans-classe">Sans classe affectée</option>
+        <option *ngFor="let cls of classes" [value]="cls._id">{{ cls.nom }}</option>
+      </select>
+    </div>
+
+    <!-- Table professeurs -->
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Email</th>
+            <th>Téléphone</th>
+            <th>Matières autorisées</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let prof of professeursFiltres">
+
+            <tr>
+              <td>{{ prof.nom }}</td>
+              <td>{{ prof.prenom }}</td>
+              <td>{{ prof.email }}</td>
+              <td>{{ prof.telephone || '—' }}</td>
+              <td>
+                <span *ngFor="let mat of getMatieresAutorisees(prof)" class="badge">
+                  {{ mat.nom }}
+                </span>
+                <span *ngIf="!getMatieresAutorisees(prof).length" class="badge-empty">Aucune</span>
+              </td>
+              <td class="actions">
+                <button class="btn-modifier" (click)="modifier(prof)">Modifier</button>
+                <button class="btn-supprimer" (click)="supprimer(prof._id)">Supprimer</button>
+              </td>
+            </tr>
+
+            <!-- Ligne modification -->
+            <tr *ngIf="profModifier && profModifier._id === prof._id" class="ligne-edit">
+              <td><input [(ngModel)]="profModifier.nom" placeholder="Nom"></td>
+              <td><input [(ngModel)]="profModifier.prenom" placeholder="Prénom"></td>
+              <td><input [(ngModel)]="profModifier.email" placeholder="Email"></td>
+              <td><input [(ngModel)]="profModifier.telephone" placeholder="Téléphone"></td>
+              <td>
+  <div class="matieres-modifier">
+    <div class="matieres-simple-liste">
+      <label *ngFor="let mat of matieresUniques" class="mat-checkbox">
+        <input type="checkbox"
+               [checked]="matieresModifier.includes(mat._id)"
+               (change)="toggleMatiereModifier(mat._id)">
+        {{ mat.nom }}
+      </label>
+    </div>
+  </div>
+</td>
+              <td class="actions">
+                <button class="btn-enregistrer" (click)="enregistrer()">Enregistrer</button>
+                <button class="btn-annuler" (click)="profModifier = null">Annuler</button>
+              </td>
+            </tr>
+
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
+
+    <p *ngIf="professeursFiltres.length === 0" class="no-data">Aucun professeur trouvé</p>
+  </div>
+</div>

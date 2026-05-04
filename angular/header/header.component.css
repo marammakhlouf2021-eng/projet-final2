@@ -1,0 +1,43 @@
+.custom-navbar {
+  background-color: #707ca5; 
+  padding: 12px 24px;
+}
+
+.navbar-title {
+  display: flex;
+  gap: 20px;
+}
+
+.navbar-title a {
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 16px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.navbar-title a:hover {
+  background-color: #1e293b;
+}
+
+.navbar-title a.active {
+  background-color: #3c1274;
+  color: #ffffff;
+}
+.container-fluid {
+  padding-left: 0;
+  padding-right: 0;
+}
+.custom-navbar {
+  background-color: #707ca5;
+  padding: 12px 24px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  width: 100%;
+  box-sizing: border-box;
+}

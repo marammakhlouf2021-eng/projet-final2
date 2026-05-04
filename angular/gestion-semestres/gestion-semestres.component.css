@@ -1,0 +1,120 @@
+.page { display: flex; }
+
+.content {
+  flex: 1;
+  padding: 28px;
+  box-sizing: border-box;
+  background: #f8f5ff;
+}
+
+.header {
+  margin-bottom: 24px;
+}
+
+h2 {
+  color: #4a3f6b;
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+/* Table */
+.table-card {
+  background: white;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(74,63,107,0.10);
+}
+
+table { width: 100%; border-collapse: collapse; }
+
+th {
+  background: linear-gradient(135deg, #7c6fa0, #4a3f6b);
+  color: white;
+  padding: 14px 18px;
+  text-align: left;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+td {
+  padding: 14px 18px;
+  border-bottom: 1px solid #f0eaff;
+  background: white;
+  font-size: 13px;
+  color: #333;
+  vertical-align: middle;
+}
+
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: #faf5ff; }
+
+/* Cell actions */
+.actions-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* Badges */
+.badge-cloture {
+  display: inline-block;
+  background: #E8F5E9;
+  color: #2E7D32;
+  padding: 5px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  border: 1px solid #c8e6c9;
+}
+
+.badge-ouvert {
+  display: inline-block;
+  background: #FFF3E0;
+  color: #E65100;
+  padding: 5px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  border: 1px solid #ffe0b2;
+}
+
+/* Boutons */
+.btn-cloturer {
+  background: linear-gradient(135deg, #7c6fa0, #4a3f6b);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  transition: 0.2s;
+  box-shadow: 0 2px 6px rgba(74,63,107,0.25);
+  white-space: nowrap;
+}
+
+.btn-cloturer:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.btn-decloturer {
+  background: linear-gradient(135deg, #ff9800, #e65100);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  transition: 0.2s;
+  box-shadow: 0 2px 6px rgba(230,81,0,0.25);
+  white-space: nowrap;
+}
+
+.btn-decloturer:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}

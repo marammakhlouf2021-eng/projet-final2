@@ -1,0 +1,37 @@
+<div class="page">
+  <app-sidebar-etudiant></app-sidebar-etudiant>
+
+  <div class="content">
+    <div class="chat-window">
+
+      <div class="chat-header">
+        <div class="avatar">💬</div>
+        <div class="info">
+          <h3>University Bot</h3>
+          <span class="status">● Online</span>
+        </div>
+      </div>
+
+      <div class="messages" #messagesContainer>
+        <div *ngFor="let msg of messages"
+             class="msg"
+             [ngClass]="msg.sender === 'user' ? 'user' : 'bot'">
+          {{ msg.text }}
+        </div>
+        <div class="msg bot typing" *ngIf="isTyping">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+
+      <div class="input-row">
+        <input
+          [(ngModel)]="userInput"
+          (keydown)="onKeyDown($event)"
+          placeholder="Écrivez votre message..."
+        />
+        <button class="send-btn" (click)="sendMessage()">➤</button>
+      </div>
+
+    </div>
+  </div>
+</div>
