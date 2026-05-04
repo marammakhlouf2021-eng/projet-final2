@@ -1,0 +1,85 @@
+<div class="page">
+  <app-sidebar-professeur></app-sidebar-professeur>
+
+  <div class="content">
+    <div class="header">
+      <h2>Saisir les Notes</h2>
+    </div>
+
+    <!-- Filtres -->
+    <div class="filtres-card">
+      <div class="filtre-group">
+        <label>Semestre</label>
+        <select [(ngModel)]="semestreSelectionne" (change)="onSemestreChange()">
+          <option value="">-- Choisir semestre --</option>
+          <option value="S1">Semestre 1</option>
+          <option value="S2">Semestre 2</option>
+        </select>
+      </div>
+      <div class="filtre-group">
+        <label>Matière</label>
+        <select [(ngModel)]="matiereSelectionnee" (change)="onMatiereChange()">
+          <option value="">Choisir matière</option>
+          <option *ngFor="let mat of matieres" [value]="mat._id">
+  {{ mat.nom }} — {{ mat.classeActive?.nom || '' }}
+</option>
+        </select>
+      </div>
+      <div class="filtre-group">
+        <label>Type d'évaluation</label>
+        <select [(ngModel)]="typeNote" (change)="onTypeChange()">
+          <option value="">Type</option>
+          <option value="DS1">DS1</option>
+          <option value="DS2">DS2</option>
+          <option value="Examen">Examen</option>
+          <option value="TP">TP</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Table notes -->
+    <div class="table-card" *ngIf="etudiants.length > 0">
+      <div class="table-header">
+        <span>{{ etudiants.length }} étudiant(s)</span>
+        <button class="btn-enregistrer-tout" (click)="enregistrerTout()">
+          ✓ Enregistrer tout
+        </button>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Note /20</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let etu of etudiants">
+            <td>{{ etu.nom }}</td>
+            <td>{{ etu.prenom }}</td>
+            <td>
+             <input type="number" min="0" max="20"
+                   [(ngModel)]="notes[etu._id]"
+                   (input)="verifierNote(etu._id)"
+                  class="input-note">
+            </td>
+            <td>
+              <button class="btn-enregistrer" (click)="enregistrerNote(etu._id)">
+                ✓ Enregistrer
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div *ngIf="etudiants.length === 0 && matiereSelectionnee" class="no-data">
+      Aucun étudiant dans cette classe
+    </div>
+    <div *ngIf="!matiereSelectionnee" class="no-data">
+      Veuillez choisir une matière pour afficher les étudiants
+    </div>
+
+  </div>
+</div>

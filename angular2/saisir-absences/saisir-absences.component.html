@@ -1,0 +1,104 @@
+<div class="page">
+  <app-sidebar-professeur></app-sidebar-professeur>
+
+  <div class="content">
+    <div class="header">
+      <h2>Saisir les Absences </h2>
+    </div>
+
+    <div class="filtres-card">
+      <div class="filtre-group">
+        <label>Jour</label>
+        <select [(ngModel)]="jourSelectionne" (change)="onFiltreChange()">
+          <option value="">Choisir jour </option>
+          <option *ngFor="let jour of jours" [value]="jour">{{ jour }}</option>
+        </select>
+      </div>
+      <div class="filtre-group">
+        <label>Séance</label>
+        <select [(ngModel)]="seanceSelectionnee" (change)="onSeanceChange()">
+          <option value="">-- Choisir séance --</option>
+          <option *ngFor="let s of seancesFiltrees" [value]="s._id">
+            {{ s.matiere?.nom }} — {{ s.heureDebut }}/{{ s.heureFin }} — {{ s.classe?.nom }}
+          </option>
+        </select>
+      </div>
+      <div class="filtre-group">
+        <label>Date</label>
+        <input type="date" [(ngModel)]="dateSelectionnee" (change)="onDateChange()" 
+  [max]="aujourdhui" class="input-date">
+      </div>
+    </div>
+
+    <div class="table-card" *ngIf="etudiants.length > 0">
+      <div class="table-header">
+        <span>{{ etudiants.length }} étudiant(s)</span>
+        <button class="btn-enregistrer-tout" (click)="enregistrerTout()">✓ Enregistrer tout</button>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Absent/Retard</th>
+            <th>Type</th>
+            <th>Durée retard</th>
+            <th>Justifiée</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let etu of etudiants" [class.ligne-absent]="absences[etu._id].absent">
+            <td>{{ etu.nom }}</td>
+            <td>{{ etu.prenom }}</td>
+            <td>
+              <label class="toggle">
+                <input type="checkbox" [(ngModel)]="absences[etu._id].absent">
+                <span class="slider"></span>
+              </label>
+            </td>
+            <td>
+              <select [(ngModel)]="absences[etu._id].type" [disabled]="!absences[etu._id].absent" class="select-type">
+                <option value="absence">Absence</option>
+                <option value="retard">Retard</option>
+              </select>
+            </td>
+            <td>
+              <input type="number" min="1" max="120"
+                [(ngModel)]="absences[etu._id].dureeRetard"
+                [disabled]="!absences[etu._id].absent || absences[etu._id].type !== 'retard'"
+                class="input-retard"
+                placeholder="min">
+            </td>
+            <td>
+              <label class="toggle">
+                <input type="checkbox" [(ngModel)]="absences[etu._id].justifiee"
+                  [disabled]="!absences[etu._id].absent">
+                <span class="slider"></span>
+              </label>
+            </td>
+            <td class="actions-td">
+              <button class="btn-enregistrer"
+                [disabled]="!absences[etu._id].absent"
+                (click)="enregistrerAbsence(etu._id)">
+                {{ absences[etu._id].absenceId ? ' Modifier' : ' Enregistrer' }}
+              </button>
+              <button class="btn-supprimer"
+                *ngIf="absences[etu._id].absenceId"
+                (click)="supprimerAbsence(etu._id)">
+                
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div *ngIf="etudiants.length === 0 && seanceSelectionnee" class="no-data">
+      Aucun étudiant dans cette classe
+    </div>
+    <div *ngIf="!seanceSelectionnee" class="no-data">
+      Veuillez choisir une séance pour afficher les étudiants
+    </div>
+  </div>
+</div>

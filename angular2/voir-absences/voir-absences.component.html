@@ -1,0 +1,108 @@
+<div class="page">
+  <app-sidebar-professeur></app-sidebar-professeur>
+
+  <div class="content">
+    <div class="header">
+      <h2>Voir les Absences </h2>
+    </div>
+
+    <div class="filtres-card">
+      <div class="filtre-group">
+        <label>Classe</label>
+        <select [(ngModel)]="classeSelectionnee" (change)="chargerAbsences()">
+          <option value="">Choisir classe </option>
+          <option *ngFor="let cls of classes" [value]="cls._id || cls">
+            {{ cls.nom || cls }}
+          </option>
+        </select>
+      </div>
+      <div class="filtre-group">
+        <label>Date</label>
+        <input type="date" [(ngModel)]="dateSelectionnee" (change)="chargerAbsences()" class="input-date">
+      </div>
+    </div>
+
+    <!-- Modal modification -->
+    <div class="modal" *ngIf="absenceModifier">
+      <div class="modal-card">
+        <h3>Modifier l'absence</h3>
+        <p>{{ absenceModifier.etudiant?.nom }} {{ absenceModifier.etudiant?.prenom }} — {{ absenceModifier.matiere?.nom }}</p>
+        
+        <div class="form-group">
+          <label>Type</label>
+          <select [(ngModel)]="absenceModifier.type">
+            <option value="absence">Absence</option>
+            <option value="retard">Retard</option>
+          </select>
+        </div>
+        
+        <div class="form-group" *ngIf="absenceModifier.type === 'retard'">
+          <label>Durée retard (minutes)</label>
+          <input type="number" min="1" max="120" [(ngModel)]="absenceModifier.dureeRetard">
+        </div>
+        
+        <div class="form-group">
+          <label>Justifiée</label>
+          <label class="toggle">
+            <input type="checkbox" [(ngModel)]="absenceModifier.justifiee">
+            <span class="slider"></span>
+          </label>
+        </div>
+        
+        <div class="modal-actions">
+          <button class="btn-enregistrer" (click)="enregistrerModification()">✓ Enregistrer</button>
+          <button class="btn-annuler" (click)="absenceModifier = null">✗ Annuler</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="table-card" *ngIf="absences.length > 0">
+      <div class="table-header">
+        <span>{{ absences.length }} absence(s) / retard(s)</span>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Étudiant</th>
+            <th>Matière</th>
+            <th>Type</th>
+            <th>Durée retard</th>
+            <th>Justifiée</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let abs of absences">
+            <td>{{ abs.etudiant?.nom }} {{ abs.etudiant?.prenom }}</td>
+            <td>{{ abs.matiere?.nom }}</td>
+            <td>
+              <span [class]="abs.type === 'retard' ? 'badge-retard' : 'badge-absence'">
+                {{ getTypeLabel(abs.type) }}
+              </span>
+            </td>
+            <td>
+              <span *ngIf="abs.type === 'retard'">{{ abs.dureeRetard }} min</span>
+              <span *ngIf="abs.type !== 'retard'">—</span>
+            </td>
+            <td>
+              <span [class]="abs.justifiee ? 'badge-justifie' : 'badge-non-justifie'">
+                {{ abs.justifiee ? ' Oui' : ' Non' }}
+              </span>
+            </td>
+            <td class="actions-td">
+              <button class="btn-modifier" (click)="modifier(abs)"> Modifier</button>
+              <button class="btn-supprimer" (click)="supprimer(abs._id)">Supprimer</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div *ngIf="absences.length === 0 && classeSelectionnee && dateSelectionnee" class="no-data">
+      Aucune absence pour cette classe à cette date
+    </div>
+    <div *ngIf="!classeSelectionnee || !dateSelectionnee" class="no-data">
+      Veuillez choisir une classe et une date
+    </div>
+  </div>
+</div>

@@ -1,0 +1,70 @@
+.sidebar {
+  width: 250px;
+  height: calc(100vh - 60px);
+  background: linear-gradient(180deg,  #707ca5, #6c218f);
+  position: fixed;
+  left: 0;
+  top: 60px;
+  display: flex;
+  flex-direction: column;
+  z-index: 999;
+  overflow: hidden;
+}
+
+/* TITRE */
+.sidebar h3 {
+  color: white;
+  text-align: center;
+  padding: 20px;
+  font-size: 18px;
+  border-bottom: 1px solid rgba(255,255,255,0.25);
+  margin: 0 0 20px 0;
+  letter-spacing: 1px;
+}
+
+/* LISTE */
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex: 1;
+}
+
+/* LIENS */
+.sidebar ul li a {
+  display: block;
+  padding: 12px 25px;
+  color: rgba(255,255,255,0.9);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-size: 14px;
+  border-left: 3px solid transparent;
+}
+
+/* HOVER + ACTIVE */
+.sidebar ul li a:hover,
+.sidebar ul li a.active {
+  background: rgba(255,255,255,0.2);
+  color: #ffffff;
+  border-left: 3px solid #dcd6f7; /* mix clair violet/bleu */
+  padding-left: 30px;
+}
+
+/* BOUTON DECONNEXION */
+.btn-deconnexion {
+  margin: 10px 15px 20px 15px;
+  background: rgba(255,255,255,0.15);
+  color: white;
+  border: 1px solid rgba(255,255,255,0.25);
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+  width: calc(100% - 30px);
+}
+
+/* HOVER BUTTON */
+.btn-deconnexion:hover {
+  background: linear-gradient(135deg, #ff6b6b, #ff4d4d);
+  border: none;
+}

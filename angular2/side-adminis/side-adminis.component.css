@@ -1,0 +1,54 @@
+.layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 250px;
+  height: calc(100vh - 60px);
+ background: linear-gradient(180deg,  #707ca5, #6c218f);
+  color: white;
+  padding: 20px;
+  position: fixed;
+  left: 0;
+  top: 60px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar h2 {
+  margin-bottom: 50px;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  margin: 15px 0;
+}
+
+.sidebar ul li a {
+  text-decoration: none;
+  color: white;
+  padding: 10px;
+  display: block;
+  border-radius: 8px;
+  transition: 0.3s;
+}
+
+.sidebar ul li a:hover {
+  background-color: #6c76a8(255, 255, 255, 0.2);
+}
+
+.active {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.content {
+  flex: 1;
+  padding: 40px;
+  background-color: #f3f4f6;
+}
